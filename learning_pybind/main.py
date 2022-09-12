@@ -5,6 +5,9 @@ import time
 # calling our cpp function in python
 print("Result of sum = ", python_adder_fn(1.5,2.5))
 
+# calling our templated cpp function in python
+print("Output of templated cpp function is = ", py_foo_float_to_int([1,2,3]))
+
 # creating a python object of the exposed cpp class and constructor
 my_obj = PySomeClass(5)
 # calling the class member function

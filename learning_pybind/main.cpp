@@ -14,13 +14,17 @@ float adder(float arg1, float arg2) {
     return arg1+arg2;
 }
 
-// some templated function ------------------------------------incomplete
-//template<typename To, typename From>
-//std::vector<To> foo(std::vector<From> nums) {
-//    // say converting a vector of ints to vector of floats
-//    for(size_t i=0; i<nums.size(); i++)
-//        nums
-//}
+// some templated function
+template<typename To, typename From>
+std::vector<To> foo_template(std::vector<From> nums) {
+    // say taking in a vector of ints and output is a vector of floats
+    std::vector<To> result;
+
+    for (int i = 0; i < nums.size(); i++)
+        result.push_back(2.1f*nums[i]);
+
+    return result;
+}
 
 // some class
 class SomeClass {
@@ -57,6 +61,10 @@ PYBIND11_MODULE(kumar_test, handle) {  //Note: "kumar_test"- the module name mus
 
     // function needed to expose a cpp function to python
     handle.def("python_adder_fn", &adder);  //name on the python side
+
+    // function needed to expose our templated cpp function to python
+    // C++ templates cannot be instantiated at runtime, so you cannot bind the non-instantiated function
+    handle.def("py_foo_float_to_int", &foo_template<float, int>);  //name on the python side
 
     // function needed to expose the cpp class to python
     py::class_<SomeClass>(handle, "PySomeClass")  // name of class on the python side
