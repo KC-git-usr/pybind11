@@ -62,6 +62,10 @@ PYBIND11_MODULE(kumar_test, handle) {  //Note: "kumar_test"- the module name mus
     // function needed to expose a cpp function to python
     handle.def("python_adder_fn", &adder);  //name on the python side
 
+    // exposing the same cpp function as above, but with richer parameters
+    handle.def("python_adder_fn", &adder, "A function that adds two numbers",
+               py::arg("arg1") = 1.0, py::arg("arg2") = 2.0);
+
     // function needed to expose our templated cpp function to python
     // C++ templates cannot be instantiated at runtime, so you cannot bind the non-instantiated function
     handle.def("py_foo_float_to_int", &foo_template<float, int>);  //name on the python side
