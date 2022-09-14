@@ -56,19 +56,33 @@ void function_that_takes_a_while() {
 }
 
 // Define the module, call the macro | parameters : module_name and handle?
-PYBIND11_MODULE(kumar_test, handle) {  //Note: "kumar_test"- the module name must match in both main.cpp and CMakeLists.txt
+PYBIND11_MODULE(kumar_py_lib, handle) {  //Note: "kumar_test"- the module name must match in both main.cpp and CMakeLists.txt
     handle.doc() = "This string is a proxy for the docs that we can add";
+    handle.doc() = R"pbdoc(
+        Pybind11 example docs
+        -----------------------
 
-    // function needed to expose a cpp function to python
-    handle.def("python_adder_fn", &adder);  //name on the python side
+        .. currentmodule:: kumar_py_lib
 
-    // exposing the same cpp function as above, but with richer parameters
-    handle.def("python_adder_fn", &adder, "A function that adds two numbers",
-               py::arg("arg1") = 1.0, py::arg("arg2") = 2.0);
+        .. autosummary::
+           :toctree: _generate
+
+           adder
+           foo_template
+    )pbdoc";
+
+    // function needed to expose a cpp function to python with rich parameters
+    handle.def("python_adder_fn", &adder,
+               "A function that adds two numbers",
+               py::arg("arg1") = 1.0, py::arg("arg2") = 2.0);  //name on the python side
 
     // function needed to expose our templated cpp function to python
     // C++ templates cannot be instantiated at runtime, so you cannot bind the non-instantiated function
-    handle.def("py_foo_float_to_int", &foo_template<float, int>);  //name on the python side
+    handle.def("py_foo_float_to_int", &foo_template<float, int>,
+            "A cpp templated function "
+            "input: cpp vector of ints"
+            "output: cpp vector of floats",
+            py::arg("vector_of_ints"));  //name on the python side
 
     // function needed to expose the cpp class to python
     py::class_<SomeClass>(handle, "PySomeClass")  // name of class on the python side
