@@ -1,0 +1,4 @@
+# ignore non-src colcon folders
+build/
+install/
+log/

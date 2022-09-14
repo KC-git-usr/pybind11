@@ -36,3 +36,11 @@
 
 # Clion IDE
 .idea
+
+# my workout sessions folder
+/learning_eigen
+/tutorial_example
+
+# unwanted build folders
+*/*.egg-info
+*/*/*/*.egg-info
