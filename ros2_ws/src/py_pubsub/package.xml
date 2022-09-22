@@ -7,8 +7,8 @@
   <maintainer email="kumar.v.cube98@gmail.com">kc</maintainer>
   <license>Apache License 2.0</license>
   
-  <depend>frankensteins_monster</depend>
-  
+  <depend>ros_answers</depend>
+
   <exec_depend>rclpy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
 

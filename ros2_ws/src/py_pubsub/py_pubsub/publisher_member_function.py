@@ -16,6 +16,7 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import String
+import ros_answers.kumar_py_lib as kpl
 
 
 class MinimalPublisher(Node):
@@ -32,6 +33,7 @@ class MinimalPublisher(Node):
         msg.data = 'Hello World: %d' % self.i
         self.publisher_.publish(msg)
         self.get_logger().info('Publishing: "%s"' % msg.data)
+        self.get_logger().info('Result of addition from cpp lib: "%s"' % kpl.python_adder_fn(1,5))
         self.i += 1
 
 
